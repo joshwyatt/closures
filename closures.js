@@ -137,6 +137,8 @@ let printFour = returnPrintNum(4);
 printFour();
 
 /*
+ * ASIDE
+ *
  * Arrow function expressions can make our code even more concise,
  * for better or worse.
  */
@@ -145,3 +147,68 @@ let moreConciseReturnPrintNum = num => () => { console.log(num) }
 
 let printFive = returnPrintNum(5);
 printFive();
+
+/*
+ * Closures can define their own parameters like any other function.
+ */
+
+function makeSubject(subject) {
+
+  return function(verb) {
+    console.log(`${subject} ${verb}`);
+  }
+
+}
+
+let ro = makeSubject('ro');
+ro('smiles');
+ro('laughs');
+ro('eats');
+ro('sleeps');
+
+/*
+ * Commonly, we will create a closure to augment the behavior
+ * of an already defined function.
+ */
+
+function add(num1, num2) {
+  return num1 + num2;
+}
+
+function makeFunctionWithLogging(fn) {
+  return function(...args) {
+    console.log(`Function ${fn.name} called with args: ${args}`);
+    fn(...args);
+  }
+}
+
+let addWithLogging = makeFunctionWithLogging(add);
+addWithLogging(1, 2);
+addWithLogging(9, 3);
+addWithLogging(7, 12);
+
+/*
+ * Sometimes augmenting the behavior of a function
+ * acutally means limiting its behavior.
+ */
+
+function makePerson(first, last) {
+  console.log(`There is a unique person named ${first} ${last}.`);
+}
+
+function makeSingleCallFunction(fn) {
+  let called = false;
+  return function(...args) {
+    if (!called) {
+      called = true;
+      fn(...args);
+    }
+  }
+}
+
+let makeUniquePerson = makeSingleCallFunction(makePerson);
+
+makeUniquePerson('ro', 'wyatt');
+makeUniquePerson('ro', 'wyatt');
+makeUniquePerson('ro', 'wyatt');
+makeUniquePerson('ro', 'wyatt');
