@@ -26,7 +26,7 @@ let logger = returnLogger();
 logger();
 ```
 
-We can also pass function definions as values into other functions.
+We can also pass function definitions as values into other functions.
 
 ```javascript
 function returnFunction(fn) {
@@ -42,7 +42,7 @@ let newPrinter = returnFunction(printer);
 newPrinter();
 ```
 
-When we return function definitions from outer functions, the same rule about continued access to variables outside the lexical scope of the function definition applies.
+When we return function definitions from outer functions, we apply the same rule about continued access to variables outside the lexical scope of the function definition.
 
 ```javascript
 let one = 1;
@@ -58,7 +58,7 @@ let printOne = returnPrintOne();
 printOne();
 ```
 
-The value that the inner function retains access to can be in any outer scope, not just the most outer.
+The value that the inner function retains access to can be in any outer scope, not just the outermost.
 
 ```javascript
 function returnPrintTwo() {
@@ -118,7 +118,7 @@ function conciseReturnPrintNum(num) {
 
 }
 
-let printFour = returnPrintNum(4);
+let printFour = conciseReturnPrintNum(4);
 printFour();
 ```
 
